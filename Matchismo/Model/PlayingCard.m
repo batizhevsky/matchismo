@@ -21,8 +21,12 @@
     return @[@"♠︎", @"♣︎", @"♥︎", @"♦︎"];
 }
 
+- (NSString *)description {
+    return self.contents;
+}
+
 - (void)setSuit:(NSString *)suit {
-    if ([[PlayingCard validSuits] containsObject:self]) {
+    if ([[PlayingCard validSuits] containsObject:suit]) {
         _suit = suit;
     }
 }

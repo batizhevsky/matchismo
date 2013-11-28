@@ -15,5 +15,6 @@
 - (void)addCard:(Card *)card;
 
 - (Card *)drawRandomCard;
+- (NSMutableArray *)cards ;
 
 @end
