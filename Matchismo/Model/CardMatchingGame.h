@@ -16,6 +16,9 @@
 - (instancetype)initWithCardCount:(NSUInteger)count usingDeck:(Deck *)deck;
 - (void)chooseCardAtIndex:(NSUInteger)index;
 - (Card *)cardAtIndex:(NSUInteger)index;
-
+- (void)start;
+@property (nonatomic) NSInteger numberOfCards;
 @property (nonatomic, readonly) NSInteger score;
+@property (nonatomic, readonly) NSString *actionLog;
+@property (nonatomic, getter = isStarted, readonly) BOOL started;
 @end

@@ -11,18 +11,21 @@
 @implementation PlayingCard
 
 - (int)match:(NSArray *)otherCards {
-    int score = 0;
+    int totatlScore = 0;
     
-    if ([otherCards count] == 1) {
-        PlayingCard *otherCard = [otherCards firstObject];
-        if (otherCard.rank == self.rank) {
-            score = 4;
-        } else if ([otherCard.suit isEqualToString:self.suit]) {
-            score = 1;
+    for (PlayingCard *card in otherCards) {
+        
+        if (card.rank == self.rank) {
+            totatlScore += 4;
+        } else if ([card.suit isEqualToString:self.suit]) {
+            totatlScore += 1;
         }
     }
-    return score;
+    
+    return totatlScore;
 }
+
+
 
 - (NSString *)contents {
     NSArray *rankStrings = [PlayingCard rankStrings];

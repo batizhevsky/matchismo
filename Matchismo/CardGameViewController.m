@@ -15,12 +15,38 @@
 @property (strong, nonatomic) CardMatchingGame *game;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
+@property (weak, nonatomic) IBOutlet UILabel *actionLog;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *numberOfCardsSelector;
 @end
 
 @implementation CardGameViewController
 
+- (IBAction)cardMarchMode:(UISegmentedControl *)sender {
+    NSLog(@"selected segment %d", [sender selectedSegmentIndex]);
+    [self resetNumberOfCards:sender];
+}
+
+- (void)resetNumberOfCards:(UISegmentedControl *)segmentControl{
+    if ([segmentControl selectedSegmentIndex] == 0)
+        self.game.numberOfCards = 2;
+    else
+        self.game.numberOfCards = 3;
+}
+
+- (IBAction)resetGame:(UIButton *)sender{
+    [self setGame:[self createGame]];
+    [self resetNumberOfCards:self.numberOfCardsSelector];
+    [self.numberOfCardsSelector setEnabled:TRUE];
+    [self updateUi];
+}
+
+- (CardMatchingGame *)createGame {
+    return [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
+}
+
+
 - (CardMatchingGame *)game {
-    if (!_game) _game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
+    if (!_game) _game = [self createGame];
     return _game;
 }
 
@@ -28,10 +54,20 @@
     return [[PlayingCardDeck alloc] init];
 }
 
+- (void)startGameIfNot{
+    if (![self.game isStarted]) {
+        [self.game start];
+        [self.numberOfCardsSelector setEnabled:FALSE];
+    }
+}
+
 - (IBAction)touchCardButton:(UIButton *)sender {
+    [self startGameIfNot];
     
     int chosenButtonIndex = [self.cardButtons indexOfObject:sender];
     [self.game chooseCardAtIndex:chosenButtonIndex];
+    self.actionLog.text = self.game.actionLog;
+
     [self updateUi];
 }
 
@@ -52,5 +88,4 @@
 - (UIImage *)backroundImageForCard:(Card *)card{
     return [UIImage imageNamed:card.isChosen ? @"cardfront" : @"cardback"];
 }
-
 @end
