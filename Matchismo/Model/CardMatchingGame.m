@@ -58,7 +58,7 @@ static const int COST_OF_CHOOSE = 1;
 
 - (void)chooseCardAtIndex:(NSUInteger)index {
     Card *card = [self cardAtIndex:index];
-    self.actionLog = [[NSString alloc] initWithFormat:@"%@", card];
+    self.actionLog = [[NSString alloc] initWithFormat:@"Log: %@", card];
 
     
     if (card.isChosen) {
@@ -93,13 +93,13 @@ static const int COST_OF_CHOOSE = 1;
         }
         
         currentCard.matched = YES;
-        self.actionLog = [[NSString alloc] initWithFormat:@"Matched %@ for %d points.", [allCards componentsJoinedByString:@" & "], points];
+        self.actionLog = [[NSString alloc] initWithFormat:@"Log: Matched %@ for %d points.", [allCards componentsJoinedByString:@" & "], points];
     } else {
         self.score -= MISMATCH_PENALTY;
         for (Card *card in matchedCards) {
             card.chosen = NO;
         }
-        self.actionLog = [[NSString alloc] initWithFormat:@"%@ don’t match! %d point penalty!", [allCards componentsJoinedByString:@" & "], MISMATCH_PENALTY];
+        self.actionLog = [[NSString alloc] initWithFormat:@"Log: %@ don’t match! %d point penalty!", [allCards componentsJoinedByString:@" & "], MISMATCH_PENALTY];
     }
 }
 

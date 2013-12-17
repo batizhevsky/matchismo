@@ -407,18 +407,26 @@
                                     <action selector="cardMarchMode:" destination="vXZ-lx-hvc" eventType="valueChanged" id="e7l-zn-vu3"/>
                                 </connections>
                             </segmentedControl>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Log:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EMS-iO-vU2">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EMS-iO-vU2">
                                 <rect key="frame" x="20" y="439" width="292" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Ivr-Dx-h4K">
+                                <rect key="frame" x="196" y="410" width="118" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="historySliderChanged:" destination="vXZ-lx-hvc" eventType="valueChanged" id="pXn-pC-iSu"/>
+                                </connections>
+                            </slider>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.50196081399917603" blue="0.25098040699958801" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <connections>
                         <outlet property="actionLog" destination="EMS-iO-vU2" id="U3P-F0-VQw"/>
+                        <outlet property="historySlider" destination="Ivr-Dx-h4K" id="jpf-Cl-zDi"/>
                         <outlet property="numberOfCardsSelector" destination="Pqe-FK-qDu" id="wX4-rt-A7A"/>
                         <outlet property="scoreLabel" destination="G3J-12-6Ss" id="khp-Yd-eCL"/>
                         <outletCollection property="cardButtons" destination="kBX-JB-him" id="vEe-gv-JJT"/>

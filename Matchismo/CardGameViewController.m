@@ -16,10 +16,29 @@
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (weak, nonatomic) IBOutlet UILabel *actionLog;
+@property (weak, nonatomic) IBOutlet UISlider *historySlider;
+@property (strong, nonatomic) NSMutableArray *actionHistory;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *numberOfCardsSelector;
 @end
 
 @implementation CardGameViewController
+
+- (IBAction)historySliderChanged:(UISlider *)sender {
+    if ([self.actionHistory count]) {
+        int currentPostition = floor(sender.value);
+        self.actionLog.text = [self.actionHistory objectAtIndex:currentPostition-1];
+        if (currentPostition == [self.actionHistory count])
+            self.actionLog.alpha = 1.0;
+        else
+            self.actionLog.alpha = 0.3;
+        NSLog(@"%d of %d", currentPostition, [self.actionHistory count]);
+    }
+}
+
+- (NSMutableArray *)actionHistory {
+    if (!_actionHistory) _actionHistory = [[NSMutableArray alloc] init];
+    return _actionHistory;
+}
 
 - (IBAction)cardMarchMode:(UISegmentedControl *)sender {
     NSLog(@"selected segment %d", [sender selectedSegmentIndex]);
@@ -66,9 +85,18 @@
     
     int chosenButtonIndex = [self.cardButtons indexOfObject:sender];
     [self.game chooseCardAtIndex:chosenButtonIndex];
-    self.actionLog.text = self.game.actionLog;
+    [self addToLog:self.game.actionLog];
 
     [self updateUi];
+}
+
+- (void)addToLog:(NSString *)actionLog{
+    self.actionLog.text = actionLog;
+    [self.actionHistory addObject:actionLog];
+    NSLog(@"%@", self.actionHistory);
+    [self.historySlider setMaximumValue:[self.actionHistory count]];
+    [self.historySlider setValue:[self.actionHistory count]];
+    self.actionLog.alpha = 1.0;
 }
 
 - (void)updateUi {
